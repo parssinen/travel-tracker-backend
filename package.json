@@ -4,17 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=development node index.js",
+    "watch": "cross-env NODE_ENV=development nodemon index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose"
   },
   "author": "Markus Kuosmanen",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
-    "express": "^4.16.4"
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.15",
+    "static": "^2.0.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "nodemon": "^1.18.9"
   }
 }

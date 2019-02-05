@@ -13,7 +13,10 @@ const config = require('./utils/config')
 
 mongoose.set('useFindAndModify', false)
 mongoose
-  .connect(config.mongoUrl, { useNewUrlParser: true })
+  .connect(
+    'mongodb://username:password1@ds123465.mlab.com:23465/travel-tracker-dev',
+    { useNewUrlParser: true }
+  )
   .then(() => {
     console.log('connected to database', config.mongoUrl)
   })

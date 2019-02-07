@@ -38,11 +38,11 @@ app.use(cors())
 
 app.get('/data', (req, res) => {
   res.json(data)
-})
+})*/
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './build/index.html'))
-})*/
+})
 
 const server = http.createServer(app)
 

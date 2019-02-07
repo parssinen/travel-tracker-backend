@@ -4,12 +4,18 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const morgan = require('morgan')
 const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/travels')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const config = require('./utils/config')
+
+morgan.token('data', (request, response) => {
+  return JSON.stringify(request.body)
+})
+app.use(morgan(`:method :url :data :status :response-time ${'ms'}`))
 
 mongoose.set('useFindAndModify', false)
 mongoose
@@ -27,8 +33,8 @@ mongoose
 app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.tokenExtractor)
-/*app.use('/api/blogs', blogsRouter)
-app.use('/api/users', usersRouter)*/
+/*app.use('/api/blogs', blogsRouter)*/
+app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
 app.use(express.static('build'))

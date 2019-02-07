@@ -1,2 +1,2 @@
-# Travel Tracker
-Travel Tracker -sovelluksen backend
+# Travel Tracker back-end
+My Travel Tracker application front-end built using Express, Node.js and MongoDB.

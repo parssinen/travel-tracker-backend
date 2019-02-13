@@ -7,7 +7,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
 const middleware = require('./utils/middleware')
-const blogsRouter = require('./controllers/travels')
+const travelsRouter = require('./controllers/travels')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const config = require('./utils/config')
@@ -33,18 +33,12 @@ mongoose
 app.use(cors())
 app.use(bodyParser.json())
 app.use(middleware.tokenExtractor)
-/*app.use('/api/blogs', blogsRouter)*/
+app.use('/api/travels', travelsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
 app.use(express.static('build'))
 app.use(cors())
-
-/*const data = {}
-
-app.get('/data', (req, res) => {
-  res.json(data)
-})*/
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, './build/index.html'))
@@ -66,7 +60,3 @@ module.exports = {
   server
 }
 
-/*const PORT = process.env.PORT || 3000
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-})*/

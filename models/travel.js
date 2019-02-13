@@ -1,24 +1,25 @@
 const mongoose = require('mongoose')
 
-const blogSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    likes: Number,
-    author: String,
-    title: String,
-    url: String
+const travelSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  position: {
+    lat: Number,
+    lng: Number
+  },
+  title: String,
+  text: String
 })
 
-blogSchema.statics.format = (blog) => {
-    return {
-        id: blog.id,
-        user: blog.user,
-        likes: blog.likes,
-        author: blog.author,
-        title: blog.title,
-        url: blog.url
-    }
+travelSchema.statics.format = travel => {
+  return {
+    id: travel.id,
+    user: travel.user,
+    position: travel.position,
+    title: travel.title,
+    text: travel.title
+  }
 }
 
-const Blog = mongoose.model('Blog', blogSchema)
+const Travel = mongoose.model('Travel', travelSchema)
 
-module.exports = Blog
+module.exports = Travel

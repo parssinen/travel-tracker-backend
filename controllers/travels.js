@@ -46,13 +46,12 @@ travelsRouter.post('/', async (request, response) => {
     })
 
     const savedTravel = await travel.save()
-    console.log('4')
 
     user.travels = user.travels.concat(savedTravel._id)
     await user.save()
-    console.log('5')
 
-    response.json(Travel.format(travel))
+    console.log(savedTravel)
+    response.json(Travel.format(savedTravel))
   } catch (exception) {
     if (exception.name === 'JsonWebTokenError') {
       response.status(401).json({ error: exception.message })
@@ -60,7 +59,6 @@ travelsRouter.post('/', async (request, response) => {
       console.log(exception)
       response.status(500).json({ error: 'something went wrong...' })
     }
-    console.log('6')
   }
 })
 
@@ -69,11 +67,16 @@ travelsRouter.put('/:id', async (request, response) => {
   if (travel) {
     const body = request.body
     const updatedTravel = {
+      id: body.id,
+      user: body.user,
+      position: body.position,
       title: body.title,
       text: body.text
     }
+    console.log('updated', updatedTravel)
+
     const update = await Travel.findByIdAndUpdate(travel.id, updatedTravel)
-    response.json(update).end()
+    response.json(updatedTravel).end()
   } else {
     response.status(400).json({ error: 'invalid id' })
   }

@@ -16,7 +16,7 @@ travelSchema.statics.format = travel => {
     user: travel.user,
     position: travel.position,
     title: travel.title,
-    text: travel.title
+    text: travel.text
   }
 }
 

@@ -21,7 +21,6 @@ usersRouter.get('/:id', async (request, response) => {
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
-    console.log(request.body)
     const existingUser = await User.find({ username: body.username })
     console.log(existingUser)
     if (existingUser.length > 0) {

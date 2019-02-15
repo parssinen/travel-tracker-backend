@@ -24,8 +24,6 @@ travelsRouter.get('/:id', async (request, response) => {
 })
 
 travelsRouter.post('/', async (request, response) => {
-  console.log('1')
-  console.log(request.body)
   try {
     const body = request.body
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
@@ -33,10 +31,8 @@ travelsRouter.post('/', async (request, response) => {
     if (!body.position) {
       return response.status(400).json({ error: 'position missing' })
     }
-    console.log('2')
 
     const user = await User.findById(decodedToken.id)
-    console.log('3')
 
     const travel = new Travel({
       user: user.id,
@@ -50,7 +46,6 @@ travelsRouter.post('/', async (request, response) => {
     user.travels = user.travels.concat(savedTravel._id)
     await user.save()
 
-    console.log(savedTravel)
     response.json(Travel.format(savedTravel))
   } catch (exception) {
     if (exception.name === 'JsonWebTokenError') {
@@ -73,9 +68,8 @@ travelsRouter.put('/:id', async (request, response) => {
       title: body.title,
       text: body.text
     }
-    console.log('updated', updatedTravel)
 
-    const update = await Travel.findByIdAndUpdate(travel.id, updatedTravel)
+    await Travel.findByIdAndUpdate(travel.id, updatedTravel)
     response.json(updatedTravel).end()
   } else {
     response.status(400).json({ error: 'invalid id' })

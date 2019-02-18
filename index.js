@@ -2,19 +2,24 @@ const path = require('path')
 const http = require('http')
 const express = require('express')
 const app = express()
-const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
-const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const middleware = require('./utils/middleware')
-const travelsRouter = require('./controllers/travels')
+const mongoose = require('mongoose')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const markersRouter = require('./controllers/markers')
 const config = require('./utils/config')
 
 morgan.token('data', (request, response) => {
   return JSON.stringify(request.body)
 })
+
+app.use(cors())
+app.use(bodyParser.json())
+app.use(express.static('build'))
+app.use(middleware.tokenExtractor)
 app.use(morgan(`:method :url :data :status :response-time ${'ms'}`))
 
 mongoose.set('useFindAndModify', false)
@@ -30,27 +35,20 @@ mongoose
     console.log(error)
   })
 
-app.use(cors())
-app.use(bodyParser.json())
-app.use(middleware.tokenExtractor)
-app.use('/api/travels', travelsRouter)
+app.use('/api/markers', markersRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
-app.use(express.static('build'))
-app.use(cors())
-
-app.get('/*', (req, res) => {
+app.get('/*', (request, response) => {
   res.sendFile(path.join(__dirname, './build/index.html'))
 })
 
 const server = http.createServer(app)
 
-if (process.env.NODE_ENV !== 'test') {
-  server.listen(config.port, () => {
-    console.log(`Server running on port ${config.port}`)
-  })
-}
+server.listen(config.port, () => {
+  console.log(`Server running on port ${config.port}`)
+})
+
 server.on('close', () => {
   mongoose.connection.close()
 })
@@ -59,4 +57,3 @@ module.exports = {
   app,
   server
 }
-

@@ -1,12 +1,12 @@
-const tokenExtractor = (request, response, next) => {
-    const authorization = request.get('authorization')
-    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        request.token = authorization.substring(7)
-        next()
-    } else {
-        request.token = null
-        next()
-    }
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    request.token = authorization.substring(7)
+    next()
+  } else {
+    req.token = null
+    next()
+  }
 }
 
-module.exports = { tokenExtractor } 
+module.exports = { tokenExtractor }

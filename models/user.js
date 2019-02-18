@@ -3,14 +3,14 @@ const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
   username: String,
   passwordHash: String,
-  travels: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Travel' }]
+  markers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Marker' }]
 })
 
 userSchema.statics.format = user => {
   return {
     id: user.id,
     username: user.username,
-    travels: user.travels
+    markers: user.markers
   }
 }
 

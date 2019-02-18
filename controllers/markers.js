@@ -71,7 +71,7 @@ markersRouter.delete('/:id', async (request, response) => {
       return response.status(400).send({ error: 'invalid id' })
     }
 
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    const decodedToken = jwt.verify(request.token, 'SECRET')
     if (!decodedToken.id) {
       return response.status(401).send({ error: 'token missing or invalid' })
     }

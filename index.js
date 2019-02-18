@@ -10,7 +10,7 @@ const mongoose = require('mongoose')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const markersRouter = require('./controllers/markers')
-const config = require('./utils/config')
+const { mongoUrl } = require('./utils/config')
 
 morgan.token('data', (request, response) => {
   return JSON.stringify(request.body)
@@ -25,7 +25,7 @@ mongoose
     { useNewUrlParser: true }
   )
   .then(() => {
-    console.log('connected to database', config.mongoUrl)
+    console.log('connected to database', mongoUrl)
   })
   .catch(error => {
     console.log(error)

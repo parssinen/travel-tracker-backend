@@ -12,6 +12,14 @@ const loginRouter = require('./controllers/login')
 const markersRouter = require('./controllers/markers')
 const config = require('./utils/config')
 
+app.use(cors())
+app.use(bodyParser.json())
+app.use(middleware.tokenExtractor)
+app.use('/api/markers', markersRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
+app.use(express.static('build'))
+
 morgan.token('data', (request, response) => {
   return JSON.stringify(request.body)
 })
@@ -30,14 +38,6 @@ mongoose
   .catch(error => {
     console.log(error)
   })
-
-app.use(cors())
-app.use(bodyParser.json())
-app.use(middleware.tokenExtractor)
-app.use('/api/markers', markersRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/login', loginRouter)
-app.use(express.static('build'))
 
 app.get('/*', (request, response) => {
   response.sendFile(path.join(__dirname, './build/index.html'))

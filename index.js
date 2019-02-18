@@ -18,10 +18,12 @@ morgan.token('data', (request, response) => {
 
 app.use(morgan(`:method :url :data :status :response-time ${'ms'}`))
 
-const url = config.mongoUrl
 mongoose.set('useFindAndModify', false)
 mongoose
-  .connect(url, { useNewUrlParser: true })
+  .connect(
+    'mongodb://username:password1@ds139435.mlab.com:39435/travel-tracker',
+    { useNewUrlParser: true }
+  )
   .then(() => {
     console.log('connected to database', config.mongoUrl)
   })

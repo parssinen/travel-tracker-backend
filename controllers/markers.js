@@ -14,7 +14,7 @@ markersRouter.get('/', async (request, response) => {
 markersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    const decodedToken = jwt.verify(request.token, 'SECRET')
 
     if (!body.position) {
       return response.status(400).send({ error: 'position missing' })

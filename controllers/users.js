@@ -26,7 +26,7 @@ usersRouter.post('/', async (request, response) => {
       .end()
   } catch (exception) {
     console.log(exception)
-    response.status(500).json({ error: 'something went wrong' })
+    response.status(500).send({ error: 'something went wrong' })
   }
 })
 

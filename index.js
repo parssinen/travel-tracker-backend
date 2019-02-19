@@ -20,10 +20,7 @@ app.use(morgan(`:method :url :data :status :response-time ${'ms'}`))
 
 mongoose.set('useFindAndModify', false)
 mongoose
-  .connect(
-    'mongodb://username:password1@ds139435.mlab.com:39435/travel-tracker',
-    { useNewUrlParser: true }
-  )
+  .connect(config.mongoUrl, { useNewUrlParser: true })
   .then(() => {
     console.log('connected to database', config.mongoUrl)
   })

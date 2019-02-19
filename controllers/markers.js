@@ -14,7 +14,7 @@ markersRouter.get('/', async (request, response) => {
 markersRouter.post('/', async (request, response) => {
   try {
     const body = request.body
-    const decodedToken = jwt.verify(request.token, 'SECRET')
+    const decodedToken = jwt.verify(request.token, 'process.env.SECRET')
 
     if (!body.position) {
       return response.status(400).send({ error: 'position missing' })
@@ -71,7 +71,7 @@ markersRouter.delete('/:id', async (request, response) => {
       return response.status(400).send({ error: 'invalid id' })
     }
 
-    const decodedToken = jwt.verify(request.token, 'SECRET')
+    const decodedToken = jwt.verify(request.token, 'process.env.SECRET')
     if (!decodedToken.id) {
       return response.status(401).send({ error: 'token missing or invalid' })
     }

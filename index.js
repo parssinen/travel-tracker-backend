@@ -22,7 +22,7 @@ mongoose.set('useFindAndModify', false)
 mongoose
   .connect(config.mongoUrl, { useNewUrlParser: true })
   .then(() => {
-    console.log('connected to database', config.mongoUrl)
+    console.log('Connected to database at', config.mongoUrl)
   })
   .catch(error => {
     console.log(error)

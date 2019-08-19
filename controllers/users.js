@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
@@ -10,13 +9,11 @@ usersRouter.post('/', async (request, response) => {
       return response.status(400).send({ error: 'username is already taken' })
     }
 
-    const saltRounds = 10
-    const hash = await bcrypt.hash(body.password, saltRounds)
-
     const user = new User({
-      username: body.username,
-      name: body.name,
-      passwordHash: hash
+      username: 'nuotio',
+      name: 'nuotio',
+      locationLatitude: 61.393202,
+      locationLongitude: 28.299975
     })
 
     const savedUser = await user.save()

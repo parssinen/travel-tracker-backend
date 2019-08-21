@@ -6,6 +6,8 @@ loginRouter.post('/', async (request, response) => {
   const body = request.body
   const user = await User.findOne({ username: 'nuotio' })
 
+  console.log('body', body)
+
   function degreesToRadians(degrees) {
     return (degrees * Math.PI) / 180
   }

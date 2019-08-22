@@ -34,11 +34,11 @@ app.use(middleware.tokenExtractor)
 app.use('/api/markers', markersRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
-// app.use(express.static('build'))
+app.use(express.static('build'))
 
-// app.get('/*', (request, response) => {
-//   response.sendFile(path.join(__dirname, './build/index.html'))
-// })
+app.get('/*', (request, response) => {
+  response.sendFile(path.join(__dirname, './build/index.html'))
+})
 
 const server = http.createServer(app)
 server.listen(config.port, () => {
